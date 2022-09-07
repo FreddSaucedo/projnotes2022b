@@ -18,7 +18,12 @@ app.set('port', port);
 /**
  * Create HTTP server.
  */
+// app es una función de tipo middlwware (código intermediario)
+// Arrow functions - Lambda EXpression
+//(num1,num2) => num1 + num2
 
+//Toda la logica del server va aqui abajo -  back-end
+//(req, res) => {...res,send("algo")}
 var server = http.createServer(app);
 
 /**
@@ -87,4 +92,8 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
+  //Destructuring
+  let {port} = addr
+  //console.log(`🎧 Listening at http://localhost:${addr.port}`);
+  console.log(`🎧 Listening at http://localhost:${port}`);
 }
