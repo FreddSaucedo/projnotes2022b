@@ -3,7 +3,11 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  //View model - al objeto (title: express)
+  res.render('index', { 
+    title: 'Express',
+    author: 'Alfred Saucedo'
+  });
 });
 
 module.exports = router;
