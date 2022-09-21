@@ -65,7 +65,8 @@ function onError(error) {
   }
 
   var bind = typeof port === 'string'
-    ? 'Pipe ' + port
+    //? 'Pipe ' + port
+    ? `Pipe ${port}` 
     : 'Port ' + port;
 
   // handle specific listen errors with friendly messages
