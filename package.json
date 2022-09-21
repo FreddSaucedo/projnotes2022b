@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
-    "dev": "nodemon --exec babel-node ./bin/www",
-    "devb": "babel-watch ./bin/www",
+    "start": "node ./server/bin/www",
+    "dev": "nodemon ./server/bin/www",
+    "devb": "babel-watch ./server/bin/www",
     "build": ""
   },
   "dependencies": {
