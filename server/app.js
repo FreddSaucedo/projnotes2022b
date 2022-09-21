@@ -1,18 +1,18 @@
 //Biblioteca 
-import createError from('http-errors');
+import createError from "http-errors";
 //El framework express
 //var express = require('express');
-import express from('express');
+import express from "express";
 //Bibliooteca del nucleo de node que sirve para
 //administrar rutas
 //var path = require('path');
-import path from('path');
+import path from "path";
 //Biblioteca externa que sirve para administrar cookies
-import cookieParser from('cookie-parser');
+import cookieParser from "cookie-parser";
 //var cookieParser = require('cookie-parser');
 //Biblioteca que registra en consola
 //solicitudes del cliente
-import logger from('morgan');
+import logger from "morgan";
 
 //Definición de rutas
 //var indexRouter = require('./routes/index');
