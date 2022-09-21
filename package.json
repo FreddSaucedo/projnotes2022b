@@ -5,7 +5,10 @@
   "scripts": {
     "start": "node ./server/bin/www",
     "dev": "nodemon ./server/bin/www",
+<<<<<<< HEAD
     "devb": "babel-watch ./server/bin/www",
+=======
+>>>>>>> develop
     "build": ""
   },
   "dependencies": {
