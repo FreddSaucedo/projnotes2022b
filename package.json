@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./server/bin/www",
     "dev": "nodemon --exec babel-node ./server/bin/www",
-    "devc": "NODE_ENV=development && webpack serve --config ./webpack.config.js --mode development",
+    "devc": "NODE_ENV=development && webpack serve --config ./webpack.dev.config.js --mode development",
     "devb": "babel-watch ./server/bin/www",
     "cleardist": "rm -rf dist",
     "build": "npm run cleardist && babel ./server --out-dir dist --copy-files"
