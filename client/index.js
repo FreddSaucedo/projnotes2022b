@@ -1,5 +1,9 @@
-console.log("Webpack Working!!! 📦");
+//Cargando estilos
+import '../client/stylesheet/style.css'
+import '../client/stylesheet/myStyles.css'
 
+console.log("Webpack Working!!! 📦");
+/*
 // Codigo ES6
 // Default Parameters
 let show = (msg="No message given") => {
@@ -23,3 +27,4 @@ async function asyncCall() {
 }
 
 asyncCall();
+*/
