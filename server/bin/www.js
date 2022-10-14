@@ -3,33 +3,27 @@
 /**
  * Module dependencies.
  */
-
-//var app = require('../app');
-import app from '../app';
-//var debug = require('debug')('projnotes2022b:server');
-import debug from 'debug';'projnotes2022b:server';
-//var http = require('http');
-import http from 'http';
+// ES5 👇
+// var app = require('../app');
+// ES6 👇
+import app from "../app"
+var debug = require('debug')('projnotes2022b');
+var http = require('http');
 
 /**
  * Get port from environment and store in Express.
  */
 
-//var port = normalizePort(process.env.PORT || '3000');
-const port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 /**
  * Create HTTP server.
  */
-// app es una función de tipo middlwware (código intermediario)
-// Arrow functions - Lambda EXpression
-//(num1,num2) => num1 + num2
 
-//Toda la logica del server va aqui abajo -  back-end
-//(req, res) => {...res,send("algo")}
-//var server = http.createServer(app);
-const server = http.createServer(app);
+// app es una funcion de tipo middleware (codigo intermediario)
+// (req, res) =>{ ...res.send("algo") }
+var server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -43,11 +37,8 @@ server.on('listening', onListening);
  * Normalize a port into a number, string, or false.
  */
 
-//function normalizePort(val) {
-  //NO SE PUEDE GENERAR UNA ARROW FUNCTION DEBIDO A QUE RETORNAR UN STATEMENT NO ES POSIBLE
-  function normalizePort(val) {
- // var port = parseInt(val, 10);
-  const port = parseInt(val, 10);
+function normalizePort(val) {
+  var port = parseInt(val, 10);
 
   if (isNaN(port)) {
     // named pipe
@@ -59,7 +50,7 @@ server.on('listening', onListening);
     return port;
   }
 
-  return false;//EL PORQUÉ
+  return false;
 }
 
 /**
@@ -71,23 +62,19 @@ function onError(error) {
     throw error;
   }
 
-  //var bind = typeof port === 'string'
-  const bind = typeof port === 'string'
-    //? 'Pipe ' + port
-    ? `Pipe ${port}` 
-    //: 'Port ' + port;
-    : `Port ${port}`;
+  var bind = typeof port === 'string'
+    // ? 'Pipe ' + port
+    ? `Pipe ${port}`
+    : 'Port ' + port;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
-      //console.error(bind + ' requires elevated privileges');
-      console.error(`${bind} requires elevated privileges`);
+      console.error(bind + ' requires elevated privileges');
       process.exit(1);
       break;
     case 'EADDRINUSE':
-      //console.error(bind + ' is already in use');
-      console.error(`${bind} is already in use`);
+      console.error(bind + ' is already in use');
       process.exit(1);
       break;
     default:
@@ -100,18 +87,11 @@ function onError(error) {
  */
 
 function onListening() {
-  //var addr = server.address();
-  const addr = server.address();
-  //var bind = typeof addr === 'string'
-  const bind = typeof addr === 'string'
-    //? 'pipe ' + addr
-    ? `pipe ${addr}` 
-    //: 'port ' + addr.port;
-    : `port ${addr.port}`;
- // debug('Listening on ' + bind);
-  debug(`Listening on ${bind}`);
-  //Destructuring
-  let {port} = addr
-  //console.log(`🎧 Listening at http://localhost:${addr.port}`);
-  console.log(`🎧 Listening at http://localhost:${port}`);
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+    // Desestrecuturando port de addr
+    let {port} = addr
+  debug(`🎈 Listening on http://localhost:${port}`);
 }
