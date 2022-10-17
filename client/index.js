@@ -2,7 +2,7 @@
 import '../client/stylesheet/style.css'
 import '../client/stylesheet/myStyles.css'
 
-console.log("Webpack Working!!! 📦");
+console.log("Webpack-MIDDLEWARE Working!!! 📦");
 /*
 // Codigo ES6
 // Default Parameters
