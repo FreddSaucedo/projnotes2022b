@@ -25,7 +25,10 @@ import indexRouter from "./routes/index";
 import usersRouter from "./routes/users";
 
 // Creando una instancia de express
+//ES6 ✔️
 const app = express();
+//ES5 ❌
+//var app = express();
 
 // view engine setup
 // Configura el motor de plantillas
