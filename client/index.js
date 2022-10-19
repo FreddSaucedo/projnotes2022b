@@ -1,8 +1,8 @@
-//Cargando estilos
-import '../client/stylesheet/style.css'
-import '../client/stylesheet/myStyles.css'
+// Cargando estilos
+import './stylesheet/style.css';
+import './stylesheet/myStyles.css';
 
-console.log("Webpack-MIDDLEWARE Working!!! 📦");
+console.log('Webpack-MIDDLEWARE Working!!! 📦');
 /*
 // Codigo ES6
 // Default Parameters
