@@ -16,8 +16,10 @@ import morgan from 'morgan';
 import webpack from 'webpack';
 
 import webpackDevMiddleware from 'webpack-dev-middleware';
-import webpackHotMiddleware from 'webpack-hot-middleware';
 import WebpackHotMiddleware from 'webpack-hot-middleware';
+
+// Logger de la aplicación
+import logger from './config/winston';
 import debug from './services/debugLogger';
 
 // Importando Webbpack middleware
@@ -72,7 +74,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
 // Establezco Middelware
-app.use(morgan('dev'));
+app.use(morgan('dev', { stream: logger.stream }));
 // Middleware para parsear a json la peticion
 app.use(express.json());
 // Decodificar la url
@@ -89,14 +91,20 @@ app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
+  logger.error(
+    `404 Page Not Found - ${req.originalUrl} - Method: ${req.method}`
+  );
   next(createError(404));
 });
 
 // error handler
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // Registrando mensaje de error
+  logger.error(`${err.status || 500} - ${err.message}`);
 
   // render the error page
   res.status(err.status || 500);
