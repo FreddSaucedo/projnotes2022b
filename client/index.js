@@ -1,15 +1,3 @@
-// Cargando estilos
-// import './stylesheet/style.css';
-// import './stylesheet/myStyles.css';
-// Importando Materialize CSS
-import 'materialize-css/dist/css/materialize.css';
-// Importando scripts de Materialize
-import 'materialize-css/dist/js/materialize';
-
-// Inicializando Scripts de MAterialize para interactividad
-M.AutoInit();
-
-console.log('Webpack-MIDDLEWARE Working!!! 📦');
 /*
 // Codigo ES6
 // Default Parameters
@@ -35,3 +23,15 @@ async function asyncCall() {
 
 asyncCall();
 */
+// Cargando estilos
+// import './stylesheet/style.css';
+// import './stylesheet/myStyles.css';
+// Importando Materialize CSS
+import 'materialize-css/dist/css/materialize.css';
+// Importando scripts de Materialize
+import 'materialize-css/dist/js/materialize';
+
+// Inicializando Scripts de MAterialize para interactividad
+M.AutoInit();
+
+console.log('Webpack-MIDDLEWARE Working!!! 📦');
