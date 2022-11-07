@@ -3,29 +3,27 @@
 /**
  * Module dependencies.
  */
-
-//var app = require('../app');
-import app from "../app";
-var debug = require('debug')('projnotes2022b:server');
-var http = require('http');
+// ES5 👇
+// var app = require('../app');
+// ES6 👇
+import http from 'http';
+import app from '../app';
+import debug from '../services/debugLogger';
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 /**
  * Create HTTP server.
  */
-// app es una función de tipo middlwware (código intermediario)
-// Arrow functions - Lambda EXpression
-//(num1,num2) => num1 + num2
 
-//Toda la logica del server va aqui abajo -  back-end
-//(req, res) => {...res,send("algo")}
-var server = http.createServer(app);
+// app es una funcion de tipo middleware (codigo intermediario)
+// (req, res) =>{ ...res.send("algo") }
+const server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -40,7 +38,7 @@ server.on('listening', onListening);
  */
 
 function normalizePort(val) {
-  var port = parseInt(val, 10);
+  const port = parseInt(val, 10);
 
   if (isNaN(port)) {
     // named pipe
@@ -64,19 +62,20 @@ function onError(error) {
     throw error;
   }
 
-  var bind = typeof port === 'string'
-    //? 'Pipe ' + port
-    ? `Pipe ${port}` 
-    : 'Port ' + port;
+  const bind =
+    typeof port === 'string'
+      ? // ? 'Pipe ' + port
+        `Pipe ${port}`
+      : `Port ${port}`;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
+      console.error(`${bind} requires elevated privileges`);
       process.exit(1);
       break;
     case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
+      console.error(`${bind} is already in use`);
       process.exit(1);
       break;
     default:
@@ -89,13 +88,9 @@ function onError(error) {
  */
 
 function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
-  debug('Listening on ' + bind);
-  //Destructuring
-  let {port} = addr
-  //console.log(`🎧 Listening at http://localhost:${addr.port}`);
-  console.log(`🎧 Listening at http://localhost:${port}`);
+  const addr = server.address();
+  const bind = typeof addr === 'string' ? `pipe ${addr}` : `port ${addr.port}`;
+  // Desestrecuturando port de addr
+  const { port } = addr;
+  debug(`🎈 Listening on http://localhost:${port}`);
 }
