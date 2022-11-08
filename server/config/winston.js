@@ -60,7 +60,7 @@ const options = {
   },
   warnFile: {
     level: 'warn',
-    filename: `${appRoot}/server/logs/info.log`,
+    filename: `${appRoot}/server/logs/warn.log`,
     handleExceptions: false,
     maxSize: 1048576, // 1MB
     maxFiles: 5,
@@ -68,7 +68,7 @@ const options = {
   },
   errorFile: {
     level: 'error',
-    filename: `${appRoot}/server/logs/info.log`,
+    filename: `${appRoot}/server/logs/error.log`,
     handleExceptions: false,
     maxSize: 1048576, // 1MB
     maxFiles: 5,
