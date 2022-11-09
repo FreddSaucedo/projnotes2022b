@@ -28,9 +28,8 @@ import webpackConfig from '../webpack.dev.config';
 // Importando el configurador de motor de plantillas
 import configTemplateEngine from './config/templateEngine';
 
-// Definición de rutas
-import indexRouter from './routes/index';
-import usersRouter from './routes/users';
+// Importando Enrutador
+import router from './routes/router';
 
 // Recuperar el modo de ejecución de la app
 const nodeEnv = process.env.NODE_ENV || 'development';
@@ -89,10 +88,9 @@ app.use(cookieParser());
 // Servidor de archivos estáticos
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
-// Registro Rutas
-app.use('/', indexRouter);
-app.use('/index', indexRouter);
-app.use('/users', usersRouter);
+// Agregando rutas a la aplicación
+// con el enrutador
+router.addRoutes(app);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
