@@ -25,6 +25,9 @@ import debug from './services/debugLogger';
 // Importando Webbpack middleware
 import webpackConfig from '../webpack.dev.config';
 
+// Importando el configurador de motor de plantillas
+import configTemplateEngine from './config/templateEngine';
+
 // Definición de rutas
 import indexRouter from './routes/index';
 import usersRouter from './routes/users';
@@ -66,6 +69,8 @@ if (nodeEnv === 'development') {
 
 // view engine setup
 // Configura el motor de plantillas
+configTemplateEngine(app);
+
 // 1. Establecer donde estarán las plantillas
 // (Vistas -> Views)
 // app.set("<nombre de la var>", <valor>)
