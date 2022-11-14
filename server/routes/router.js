@@ -1,9 +1,9 @@
-// Importamos los tramos de rutas
-import homeRouter from '../home/homeRouter';
+// Importando los tramos de rutas
+import homeRouter from '../domains/home/homeRouter';
 
-// Funcion de enrrutado
+// Funcion de enrutado principal
 const addRoutes = (app) => {
-  // Agregando enrrutado de Home
+  // Agregando enrutado de Home
   app.use('/', homeRouter);
 };
 

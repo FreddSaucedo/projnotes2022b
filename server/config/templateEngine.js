@@ -2,10 +2,10 @@ import exphbs from 'express-handlebars';
 import path from 'path';
 
 // app: Instancia de express
-// Configurar el motor de plantillas de express
-// usando express-handlebars
-// 1. Registrar el motor de plantillas
 export default (app) => {
+  // Configurar el motor de pantillas de express
+  // usando express-handlebars
+  // 1. Registar el motor de plantillas
   app.engine(
     'hbs',
     exphbs({
@@ -14,7 +14,7 @@ export default (app) => {
     })
   );
 
-  // 2. Seleccionar motor de plantillas
+  // 2. Seleccionar el motor de plantillas
   app.set('view engine', 'hbs');
 
   // 3. Establecer la ruta de las vistas
