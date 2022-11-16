@@ -11,37 +11,15 @@ import app from '../app';
 import debug from '../services/debugLogger';
 import configKeys from '../config/configKeys';
 
+const port = normalizePort(configKeys.port);
+const server = http.createServer(app);
 /**
  * Get port from environment and store in Express.
  */
-
-const port = normalizePort(configKeys.port);
-app.set('port', port);
-
-/**
- * Create HTTP server.
- */
-
-// app es una funcion de tipo middleware (codigo intermediario)
-// (req, res) =>{ ...res.send("algo") }
-const server = http.createServer(app);
-
-/**
- * Listen on provided port, on all network interfaces.
- */
-
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
-
-/**
- * Normalize a port into a number, string, or false.
- */
-
 function normalizePort(val) {
   const port = parseInt(val, 10);
 
-  if (isNaN(port)) {
+  if (Number.isNaN(port)) {
     // named pipe
     return val;
   }
@@ -53,11 +31,6 @@ function normalizePort(val) {
 
   return false;
 }
-
-/**
- * Event listener for HTTP server "error" event.
- */
-
 function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;
@@ -95,3 +68,28 @@ function onListening() {
   const { port } = addr;
   debug(`🎈 Listening on http://localhost:${port}`);
 }
+
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+
+// app es una funcion de tipo middleware (codigo intermediario)
+// (req, res) =>{ ...res.send("algo") }
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
