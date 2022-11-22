@@ -10,29 +10,32 @@ import path from 'path';
 // Biblioteca externa que sirve para administrar
 // cookies
 import cookieParser from 'cookie-parser';
-// Biblioteca que registra en consola
-// solicitudes del cliente
+// Registrador de eventos HTTP
 import morgan from 'morgan';
-import webpack from 'webpack';
-
-import webpackDevMiddleware from 'webpack-dev-middleware';
-import WebpackHotMiddleware from 'webpack-hot-middleware';
-
-// Logger de la aplicación
-import logger from './config/winston';
-import debug from './services/debugLogger';
 
 // Importando Webbpack middleware
+import webpack from 'webpack';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import WebpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from '../webpack.dev.config';
 
 // Importando el configurador de motor de plantillas
 import configTemplateEngine from './config/templateEngine';
 
-// Importando Enrutador
+// Logger de la aplicación
+import logger from './config/winston';
+import debug from './services/debugLogger';
+
+// Importando enrutador
 import router from './routes/router';
 
+// Importando los valores de entorno
+import configKeys from './config/configKeys';
+// Importando odm
+import MongooseOdm from './config/odm';
+
 // Recuperar el modo de ejecución de la app
-const nodeEnv = process.env.NODE_ENV || 'development';
+const nodeEnv = configKeys.env;
 
 // Creando una instancia de express
 const app = express();
@@ -66,16 +69,27 @@ if (nodeEnv === 'development') {
   debug('✒ Ejecutando en modo de producción 🏭');
 }
 
+// Realizando la conexión a la base de datos
+// Creando una instancia a la conexion de la DB
+const mongooseODM = new MongooseOdm(configKeys.mongoUrl);
+// Ejecutar la conexion a la Bd
+// Crear una IIFE para crear un ambito asincrono
+// que me permita usar async await
+(async () => {
+  // Ejecutamos le metodo de conexion
+  const connectionResult = await mongooseODM.connect();
+  // Checamos si hay error
+  if (connectionResult) {
+    // Si conecto correctamente a la base de datos
+    logger.info('✅ Conexion a la BD exitosa 🛢️');
+  } else {
+    logger.error('🥀 No se conecto a la base de datos');
+  }
+})();
+
 // view engine setup
 // Configura el motor de plantillas
 configTemplateEngine(app);
-
-// 1. Establecer donde estarán las plantillas
-// (Vistas -> Views)
-// app.set("<nombre de la var>", <valor>)
-app.set('views', path.join(__dirname, 'views'));
-// Establezco que motor precargado usare
-app.set('view engine', 'hbs');
 
 // Establezco Middelware
 app.use(morgan('dev', { stream: logger.stream }));
@@ -88,14 +102,14 @@ app.use(cookieParser());
 // Servidor de archivos estáticos
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
-// Agregando rutas a la aplicación
+// Agregando rutas a la aplicacion
 // con el enrutador
 router.addRoutes(app);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   logger.error(
-    `404 Page Not Found - ${req.originalUrl} - Method: ${req.method}`
+    `404 - Page Not Found - ${req.originalUrl} - Method: ${req.method}`
   );
   next(createError(404));
 });
