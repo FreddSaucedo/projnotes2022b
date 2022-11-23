@@ -12,7 +12,11 @@ router.get(['/', '/list'], projectController.list);
 
 // Enrutamos
 // GET "/project/add"
-router.get(['/add', '/create'], projectController.add);
+router.get(['/add', '/create'], projectController.showAddProjectForm);
+
+// Enrutamos
+// POST "/project/add"
+router.post(['/add', '/create'], projectController.addProject);
 
 // Exporto este tramo de ruta
 export default router;
