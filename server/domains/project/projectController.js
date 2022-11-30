@@ -20,11 +20,24 @@ const showAddProjectForm = (req, res) => {
 // POST "/project/add"
 // POST "/project/create"
 const addProject = (req, res) => {
+  const project = {};
+  let errorModel = {};
   // Desesctructurando y renombrando error de datos
   const { errorData: error } = req;
   // Verificando si hay error de validación
   if (error) {
-    res.status(200).json(error);
+    // Rescartar los datos del formulario
+    // que fallalron en la validación
+    // project = error.value;
+    // Quiero generar un objeto que contenga
+    // Los campos con error y sus errores
+    errorModel = error.inner.reduce((prev, curr) => {
+      // Variable temporal donde se guarda el elemento anterior
+      const newVal = prev;
+      newVal[`${curr.path}Error`] = curr.message;
+      return newVal;
+    }, {});
+    res.status(200).json({ errorModel, error });
   } else {
     // Desestructurando datos del formulario
     const { validData: projectData } = req;
