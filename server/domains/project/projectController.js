@@ -1,6 +1,9 @@
 // Creando los Actions Methods
 // del controlador Project
 
+// Importando el modelo del proyecto
+import ProjectModel from './projectModel';
+
 // GET "/project"
 // GET "/project/list"
 const list = (req, res) => {
@@ -19,7 +22,7 @@ const showAddProjectForm = (req, res) => {
 
 // POST "/project/add"
 // POST "/project/create"
-const addProject = (req, res) => {
+const addProject = async (req, res) => {
   // Rescatando la info del formulario
   const { validData, errorData: error } = req;
   let project = {};
@@ -27,21 +30,31 @@ const addProject = (req, res) => {
   // Desesctructurando y renombrando error de datos
   // Verificando si hay error de validación
   if (error) {
-    // Rescartar los datos del formulario
+    // Rescatar los datos del formlario
     project = error.value;
     // Quiero generar un objeto que contenga
-    // Los campos con error y sus errores
+    // los campos con error y sus errores
     errorModel = error.inner.reduce((prev, curr) => {
-      // Variable temporal donde se guarda el elemento anterior
+      // Creabdo una variable temporal donde
+      // guardare el elemento anterior
       const newVal = prev;
       newVal[`${curr.path}Error`] = curr.message;
       return newVal;
     }, {});
   } else {
-    // Desestructurando datos del formulario
-    project = validData; // Contestando los datos del proyecti
+    // Creando un documento con los datos
+    // Provistos por el formulario
+    const projectInstance = new ProjectModel(validData);
+    // Salvando el documento en la base de datos
+    try {
+      const projectDocument = await projectInstance.save();
+      return res.json(projectDocument);
+    } catch (error1) {
+      return res.status(404).json({ error1 });
+    }
   }
-  res.status(200).render('project/add', { project, errorModel });
+  // Contestando los datos del proyecti
+  return res.status(200).render('project/add', { project, errorModel });
 };
 
 // Exportando el Controlador
